@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prelim Grade Calculator</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Space Grotesk", sans-serif;
+            background-image: url(https://i.pinimg.com/originals/f6/67/b9/f667b9a8f695a44e49bba237757ebb34.gif);
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            height: 100vh;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        .container {
+            width: 90%;
+            margin: auto;
+            margin-top: 5vh;
+            margin-bottom: 5vh;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 20px 20px 50px 20px rgb(202, 202, 202);
+            background-color: rgba(151, 151, 151, 0.205);
+            backdrop-filter: blur(2px);
+            text-align: center;
+            position: relative;
+        }
+        #container {
+            border: 5px solid black;
+            box-shadow: 10px 10px 50px 20px rgb(0, 0, 0) inset, 20px 20px 20px rgb(0, 0, 0);
+            animation: rgbborder 10s infinite;
+        }
+        @keyframes rgbborder {
+            10% {border-color: rgb(255, 255, 255);}
+            20% {border-color: rgb(205, 228, 143);}
+            30% {border-color: rgb(96, 161, 145);}
+            40% {border-color: rgb(205, 228, 143);}
+            50% {border-color: rgb(255, 255, 255);}
+            60% {border-color: rgb(205, 228, 143);}
+            70% {border-color: rgb(96, 161, 145);}
+            80% {border-color: rgb(205, 228, 143);}
+            90% {border-color: rgb(255, 255, 255);}
+        }
+        .main-container {
+            width: 95%;
+            margin: auto;
+            padding: 20px;
+            border: 5px solid black;
+            border-radius: 10px;
+            box-shadow: 10px 10px 50px 20px rgb(37, 41, 40) inset, 0px 0px 100px rgb(0, 0, 0), 10px 10px 10px rgb(0, 0, 0);
+            background-color: rgba(151, 151, 151, 0.027);
+            backdrop-filter: blur(2px);
+            text-align: center;
+            position: relative;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .grid-item {
+            border: 2px solid black;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 10px 10px 50px 20px rgb(37, 41, 40) inset, 0px 0px 100px rgb(0, 0, 0), 10px 10px 10px rgb(0, 0, 0);
+            background-color: rgba(151, 151, 151, 0.027);
+            backdrop-filter: blur(2px);
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center horizontally */
+            justify-content: center; /* Center vertically */
+            text-align: center; /* Center text */
+        }
+        h1, h2 {
+            font-family: "Monaco", "Fantasy","Courier New", monospace;
+            color: rgb(253, 255, 238);
+            text-shadow: 0px 4px 8px rgba(68, 70, 146, 0.1);
+        }
+        h3 {
+            font-family: "Monaco", "Fantasy","Courier New", monospace;
+            color: rgb(250, 250, 250);
+            text-shadow: 0px 4px 8px rgba(68, 70, 146, 0.1);
+            border: 2px solid black;
+            border-radius: 10px;
+            box-shadow: 10px 10px 50px 20px rgba(41, 41, 37, 0.938) inset, 10px 10px 50px 20px rgba(247, 247, 210, 0.356) inset, 10px 10px 10px rgb(0, 0, 0);
+            background-color: rgba(151, 151, 151, 0.027);
+            padding: 20px;
+        }
+        h4 {
+            font-family: "Monaco", "Fantasy","Courier New", monospace;
+            color: rgb(181, 247, 206);
+            text-shadow: 0px 4px 8px rgba(68, 70, 146, 0.1);
+            border: 2px solid black;
+            border-radius: 10px;
+            box-shadow: 10px 10px 50px 20px rgb(37, 41, 40) inset, 0px 0px 100px rgb(0, 0, 0), 10px 10px 10px rgb(0, 0, 0);
+            background-color: rgba(151, 151, 151, 0.027);
+            padding: 20px;
+        }
+        input[type="number"] {
+            width: 120px;
+            padding: 10px;
+            margin: 10px 0; /* Add spacing between inputs */
+            border: 2px solid black;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 16px;
+            transition: border-color 0.3s, background-color 0.3s;
+            text-align: center; /* Center text inside inputs */
+            
+        }
+        input[type="number"]:focus {
+            border-color: #252525b6;
+            background-color: rgba(82, 82, 83, 0.678);
+            outline: none;
+            
+        }
+        input[type="number"]::placeholder {
+            color: #ccc;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px 0; /* Add spacing between buttons */
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            background-color: #444;
+            border: 2px solid black;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #666;
+        }
+        .result {
+            margin-top: 10px;
+            font-weight: bold;
+            color: white;
+        }
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+            justify-content: center; /* Center tabs */
+        }
+        .tab {
+            margin-left: 20px;
+            padding: 10px 20px;
+            cursor: pointer;
+            border: 2px solid black;
+            color: rgb(241, 241, 241);
+            border-radius: 5px;
+        }
+        .tab.active {
+            background-color: #5c5c5c;
+            color: rgb(245, 245, 245);
+            box-shadow: 10px 10px 50px 20px rgb(37, 41, 40) inset;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Custom Checkbox Styling */
+        .attendanceCheckbox {
+            appearance: none; /* Remove default styling */
+            width: 20px; /* Increase size */
+            height: 20px; /* Increase size */
+            border: 2px solid black; /* Black border */
+            border-radius: 5px; /* Rounded corners */
+            background-color: rgba(255, 255, 255, 0.1); /* Light background */
+            cursor: pointer;
+            margin-right: 10px; /* Space between checkbox and label */
+            vertical-align: middle; /* Align with label text */
+            position: relative;
+        }
+
+        /* Checked state */
+        .attendanceCheckbox:checked {
+            background-color: #444; /* Dark background when checked */
+            border-color: black; /* Keep border black */
+        }
+
+        /* Checkmark */
+        .attendanceCheckbox:checked::after {
+            content: "✔"; /* Unicode checkmark */
+            font-size: 16px; /* Size of checkmark */
+            color: white; /* White checkmark */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Center-align checkbox labels */
+        label {
+            display: flex;
+            align-items: center; /* Center checkbox and label text */
+            justify-content: center; /* Center horizontally */
+            margin: 5px 0; /* Add spacing between checkboxes */
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="container">
+        <div class="main-container">
+            <h1>Prelim Grade Calculator</h1>
+
+            <div class="tabs">
+                <div class="tab active" onclick="showTab('lectureTab')">Lecture</div>
+                <div class="tab" onclick="showTab('labTab')">Laboratory</div>
+            </div>
+
+            <!-- Lecture Tab -->
+            <div id="lectureTab" class="tab-content active">
+                <h2>Lecture Prelim Calculations</h2>
+                <div class="grid-container">
+                    <!-- First Row -->
+                    <div class="grid-item">
+                        <h3>Prelim Quizzes</h3>
+                        <h4>Formula: Prelim Quizzes Average
+                        <p><code>(Essay + (PVM / 60 * 100) + (Java Basics / 40 * 100) + (JS Intro / 40 * 100)) / 4</code></p></h4>
+                        Essay: <input type="number" id="essay" placeholder="Enter score" min="0"><br>
+                        PVM: <input type="number" id="pvm" placeholder="1 - 60" min="1" max="60"><br>
+                        Java Basics: <input type="number" id="javaBasics" placeholder="1 - 40" min="1" max="40"><br>
+                        JS Intro: <input type="number" id="jsIntro" placeholder="1 - 40" min="1" max="40"><br>
+                        <button onclick="calculatePrelimQuizzes()">Calculate Quizzes</button>
+                        <div id="quizzesResult" class="result"></div>
+                        <input type="number" id="quizzesResultInput" placeholder="Quizzes Result" readonly><br>
+                    </div>
+                    <div class="grid-item">
+                        <h3>Attendance</h3>
+                        <h4>Formula: Attendance
+                        <p><code>100 - (Absences * 10)</code> (Auto-fail if ≥4 absences)</p></h4>
+                        <label>
+                            <input type="checkbox" class="attendanceCheckbox" checked> Day 1
+                        </label><br>
+                        <label>
+                            <input type="checkbox" class="attendanceCheckbox" checked> Day 2
+                        </label><br>
+                        <label>
+                            <input type="checkbox" class="attendanceCheckbox" checked> Day 3
+                        </label><br>
+                        <label>
+                            <input type="checkbox" class="attendanceCheckbox" checked> Day 4
+                        </label><br>
+                        <label>
+                            <input type="checkbox" class="attendanceCheckbox" checked> Day 5
+                        </label><br>
+                        <button onclick="calculateAttendance('lecture')">Calculate Lecture Attendance</button>
+                        <div id="lectureAttendanceResult" class="result"></div>
+                        <input type="number" id="lectureAttendanceResultInput" placeholder="Attendance Result" readonly><br>
+                    </div>
+                    <!-- Second Row -->
+                    <div class="grid-item">
+                        <h3>Class Standing</h3>
+                        <h4>Formula: Class Standing (Lecture)
+                        <p><code>(0.6 * Prelim Quizzes Average) + (0.4 * Attendance)</code></p></h4>
+                        Prelim Quizzes Average: <input type="number" id="prelimQuizzesResult" placeholder="Enter average"><br>
+                        Attendance: <input type="number" id="attendanceResultInput" placeholder="Enter attendance"><br>
+                        <button onclick="calculatePrelimClassStanding()">Calculate Class Standing</button>
+                        <div id="prelimClassStandingResult" class="result"></div>
+                        <input type="number" id="prelimClassStandingResultInput" placeholder="Class Standing Result" readonly><br>
+                    </div>
+                    <div class="grid-item">
+                        <h3>Final Prelim Grade</h3>
+                        <h4>Formula: Final Prelim Grade (Lecture)
+                        <p><code>(0.6 * Prelim Exam Grade) + (0.4 * Class Standing)</code></p></h4>
+                        Prelim Exam Grade: <input type="number" id="exam" placeholder="Enter exam grade"><br>
+                        Class Standing: <input type="number" id="prelimClassStandingResultInput" placeholder="Enter class standing"><br>
+                        <button onclick="calculateFinalPrelim('lecture')">Calculate Final Prelim Grade</button>
+                        <div id="finalResult" class="result"></div>
+                        <input type="number" id="finalResultInput" placeholder="Final Prelim Grade" readonly><br>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lab Tab -->
+            <div id="labTab" class="tab-content">
+                <h2>Laboratory Prelim Calculations</h2>
+                <div class="grid-container">
+                    <!-- First Row -->
+                    <div class="grid-item">
+                        <h3>Lab Work</h3>
+                        <h4>Formula: Lab Work average
+                        <p><code>(MP1 + MP2 + MP3 + MP3 Documentation) / 4</code></p></h4>
+                        MP1: <input type="number" id="mp1" placeholder="Enter score"><br>
+                        MP2: <input type="number" id="mp2" placeholder="Enter score"><br>
+                        MP3: <input type="number" id="mp3" placeholder="Enter score"><br>
+                        MP3 Documentation: <input type="number" id="mp3Doc" placeholder="Enter score"><br>
+                        <button onclick="calculateLabWork()">Calculate Lab Work</button>
+                        <div id="labWorkResult" class="result"></div>
+                        <input type="number" id="labWorkResultInput" placeholder="Lab Work Result" readonly><br>
+                    </div>
+                    <div class="grid-item">
+                        <h3>Attendance</h3>
+                        <h4>Formula: Attendance
+                            <p><code>100 - (Absences * 10)</code> (Auto-fail if ≥4 absences)</p></h4>
+                        <label>
+                            <input type="checkbox" class="attendanceCheckbox" checked> Day 1
+                        </label><br>
+                        <label>
+                            <input type="checkbox" class="attendanceCheckbox" checked> Day 2
+                        </label><br>
+                        <label>
+                            <input type="checkbox" class="attendanceCheckbox" checked> Day 3
+                        </label><br>
+                        <label>
+                            <input type="checkbox" class="attendanceCheckbox" checked> Day 4
+                        </label><br>
+                        <label>
+                            <input type="checkbox" class="attendanceCheckbox" checked> Day 5
+                        </label><br>
+                        <button onclick="calculateAttendance('lab')">Calculate Lab Attendance</button>
+                        <div id="labAttendanceResult" class="result"></div>
+                        <input type="number" id="labAttendanceResultInput" placeholder="Attendance Result" readonly><br>
+                    </div>
+                    <!-- Second Row -->
+                    <div class="grid-item">
+                        <h3>Class Standing</h3>
+                        <h4>Formula: Class Standing (Lab)
+                        <p><code>(0.6 * Lab Work Average) + (0.4 * Attendance)</code></p></h4>
+                        Lab Work Average: <input type="number" id="labWorkResultInput" placeholder="Enter average"><br>
+                        Attendance: <input type="number" id="labAttendanceResultInput" placeholder="Enter attendance"><br>
+                        <button onclick="calculateLabClassStanding()">Calculate Class Standing</button>
+                        <div id="labClassStandingResult" class="result"></div>
+                        <input type="number" id="labClassStandingResultInput" placeholder="Class Standing Result" readonly><br>
+                    </div>
+                    <div class="grid-item">
+                        <h3>Prelim Exam</h3>
+                        <h4>Formula: Prelim Exam (Lab)
+                        <p><code>(0.2 * Java 1) + (0.3 * Java 2) + (0.2 * JS 1) + (0.3 * JS 2)</code></p></h4>
+                        Java 1: <input type="number" id="java1" placeholder="Enter score"><br>
+                        Java 2: <input type="number" id="java2" placeholder="Enter score"><br>
+                        JS 1: <input type="number" id="js1" placeholder="Enter score"><br>
+                        JS 2: <input type="number" id="js2" placeholder="Enter score"><br>
+                        <button onclick="calculateLabPrelimExam()">Calculate Prelim Exam</button>
+                        <div id="labPrelimExamResult" class="result"></div>
+                        <input type="number" id="labPrelimExamResultInput" placeholder="Prelim Exam Result" readonly><br>
+                    </div>
+                    <!-- Third Row -->
+                    <div class="grid-item" style="grid-column: span 2;">
+                        <h3>Final Prelim Grade</h3>
+                        <h4>Formula: Final Prelim Grade (Lab)
+                        <p><code>(0.6 * Prelim Exam Grade) + (0.4 * Class Standing)</code></p></h4>
+                        Prelim Exam Grade: <input type="number" id="labPrelimExamResultInput" placeholder="Enter exam grade"><br>
+                        Class Standing: <input type="number" id="labClassStandingResultInput" placeholder="Enter class standing"><br>
+                        <button onclick="calculateFinalPrelim('lab')">Calculate Final Prelim Grade</button>
+                        <div id="labFinalResult" class="result"></div>
+                        <input type="number" id="labFinalResultInput" placeholder="Final Prelim Grade" readonly><br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Show the correct tab
+        function showTab(tabId) {
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            document.querySelector(`.tab[onclick="showTab('${tabId}')"]`).classList.add('active');
+        }
+
+        // Lecture Calculations
+        function calculatePrelimQuizzes() {
+            const essay = parseFloat(document.getElementById('essay').value) || 0;
+            const pvm = parseFloat(document.getElementById('pvm').value);
+            const javaBasics = parseFloat(document.getElementById('javaBasics').value);
+            const jsIntro = parseFloat(document.getElementById('jsIntro').value);
+
+            // Validate inputs
+            if (isNaN(pvm) || pvm < 1 || pvm > 60) {
+                alert("PVM score must be between 1 and 60.");
+                document.getElementById('pvm').focus();
+                return;
+            }
+            if (isNaN(javaBasics) || javaBasics < 1 || javaBasics > 40) {
+                alert("Java Basics score must be between 1 and 40.");
+                document.getElementById('javaBasics').focus();
+                return;
+            }
+            if (isNaN(jsIntro) || jsIntro < 1 || jsIntro > 40) {
+                alert("JS Intro score must be between 1 and 40.");
+                document.getElementById('jsIntro').focus();
+                return;
+            }
+
+            // Scale scores to percentages
+            const scaledPVM = (pvm / 60) * 100;
+            const scaledJavaBasics = (javaBasics / 40) * 100;
+            const scaledJSIntro = (jsIntro / 40) * 100;
+
+            // Calculate the average
+            const result = (essay + scaledPVM + scaledJavaBasics + scaledJSIntro) / 4;
+
+            // Display the result
+            document.getElementById('quizzesResult').textContent = `Prelim Quizzes Average: ${result.toFixed(2)}%`;
+            document.getElementById('quizzesResultInput').value = result.toFixed(2); // Update input field
+        }
+
+        function calculateAttendance(type) {
+            let container = document.getElementById(type === 'lab' ? 'labTab' : 'lectureTab');
+            let checkboxes = container.querySelectorAll('.attendanceCheckbox');
+            let absences = 0;
+
+            checkboxes.forEach(checkbox => {
+                if (!checkbox.checked) {
+                    absences++;
+                }
+            });
+
+            let attendance = 100 - (absences * 10);
+
+            if (absences >= 4) {
+                attendance = 0; // Auto-fail if 4 or more absences
+            }
+
+            let resultDiv = document.getElementById(type === 'lab' ? 'labAttendanceResult' : 'lectureAttendanceResult');
+            let inputField = document.getElementById(type === 'lab' ? 'labAttendanceResultInput' : 'lectureAttendanceResultInput');
+
+            resultDiv.textContent = `Attendance: ${attendance}%`;
+            if (inputField) inputField.value = attendance;
+        }
+
+        function calculatePrelimClassStanding() {
+            const prelimQuizzes = parseFloat(document.getElementById('prelimQuizzesResult').value) || 0;
+            const attendance = parseFloat(document.getElementById('attendanceResultInput').value) || 0;
+
+            // Validate inputs
+            if (isNaN(prelimQuizzes)) {
+                alert("Prelim Quizzes Average is required.");
+                document.getElementById('prelimQuizzesResult').focus();
+                return;
+            }
+            if (isNaN(attendance)) {
+                alert("Attendance is required.");
+                document.getElementById('attendanceResultInput').focus();
+                return;
+            }
+
+            const classStanding = (0.6 * prelimQuizzes) + (0.4 * attendance);
+
+            // Display the result
+            document.getElementById('prelimClassStandingResult').textContent = `Prelim Class Standing: ${classStanding.toFixed(2)}%`;
+            document.getElementById('prelimClassStandingResultInput').value = classStanding.toFixed(2); // Update input field
+        }
+
+        function calculateFinalPrelim(type) {
+            const exam = parseFloat(document.getElementById(type === 'lecture' ? 'exam' : 'labPrelimExamResultInput').value) || 0;
+            const classStanding = parseFloat(document.getElementById(type === 'lecture' ? 'prelimClassStandingResultInput' : 'labClassStandingResultInput').value) || 0;
+
+            // Validate inputs
+            if (isNaN(exam)) {
+                alert("Prelim Exam Grade is required.");
+                document.getElementById(type === 'lecture' ? 'exam' : 'labPrelimExamResultInput').focus();
+                return;
+            }
+            if (isNaN(classStanding)) {
+                alert("Class Standing is required.");
+                document.getElementById(type === 'lecture' ? 'prelimClassStandingResultInput' : 'labClassStandingResultInput').focus();
+                return;
+            }
+
+            const finalGrade = (0.6 * exam) + (0.4 * classStanding);
+
+            // Display the result
+            const resultDiv = type === 'lecture' ? 'finalResult' : 'labFinalResult';
+            const resultInput = type === 'lecture' ? 'finalResultInput' : 'labFinalResultInput';
+            document.getElementById(resultDiv).textContent = `Final Prelim Grade: ${finalGrade.toFixed(2)}%`;
+            document.getElementById(resultInput).value = finalGrade.toFixed(2); // Update input field
+        }
+
+        // Laboratory Calculations
+        function calculateLabWork() {
+            const mp1 = parseFloat(document.getElementById('mp1').value) || 0;
+            const mp2 = parseFloat(document.getElementById('mp2').value) || 0;
+            const mp3 = parseFloat(document.getElementById('mp3').value) || 0;
+            const mp3Doc = parseFloat(document.getElementById('mp3Doc').value) || 0;
+
+            // Validate inputs
+            if (isNaN(mp1) || isNaN(mp2) || isNaN(mp3) || isNaN(mp3Doc)) {
+                alert("All Lab Work scores are required.");
+                return;
+            }
+
+            const result = (mp1 + mp2 + mp3 + mp3Doc) / 4;
+
+            // Display the result
+            document.getElementById('labWorkResult').textContent = `Lab Work Average: ${result.toFixed(2)}%`;
+            document.getElementById('labWorkResultInput').value = result.toFixed(2); // Update input field
+        }
+
+        function calculateLabClassStanding() {
+            const labWork = parseFloat(document.getElementById('labWorkResultInput').value) || 0;
+            const attendance = parseFloat(document.getElementById('labAttendanceResultInput').value) || 0;
+
+            // Validate inputs
+            if (isNaN(labWork)) {
+                alert("Lab Work Average is required.");
+                document.getElementById('labWorkResultInput').focus();
+                return;
+            }
+            if (isNaN(attendance)) {
+                alert("Attendance is required.");
+                document.getElementById('labAttendanceResultInput').focus();
+                return;
+            }
+
+            const classStanding = (0.6 * labWork) + (0.4 * attendance);
+
+            // Display the result
+            document.getElementById('labClassStandingResult').textContent = `Lab Class Standing: ${classStanding.toFixed(2)}%`;
+            document.getElementById('labClassStandingResultInput').value = classStanding.toFixed(2); // Update input field
+        }
+
+        function calculateLabPrelimExam() {
+            const java1 = parseFloat(document.getElementById('java1').value) || 0;
+            const java2 = parseFloat(document.getElementById('java2').value) || 0;
+            const js1 = parseFloat(document.getElementById('js1').value) || 0;
+            const js2 = parseFloat(document.getElementById('js2').value) || 0;
+
+            // Validate inputs
+            if (isNaN(java1) || isNaN(java2) || isNaN(js1) || isNaN(js2)) {
+                alert("All Prelim Exam scores are required.");
+                return;
+            }
+
+            const prelimExam = (0.2 * java1) + (0.3 * java2) + (0.2 * js1) + (0.3 * js2);
+
+            // Display the result
+            document.getElementById('labPrelimExamResult').textContent = `Prelim Exam Grade: ${prelimExam.toFixed(2)}%`;
+            document.getElementById('labPrelimExamResultInput').value = prelimExam.toFixed(2); // Update input field
+        }
+    </script>
+</body>
+</html>
